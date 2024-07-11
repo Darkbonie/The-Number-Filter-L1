@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phone Number Filter</title>
+  <style>
+    /* CSS styles remain the same */
+  </style>
+</head>
+<body>
+  <h1>Phone Number Filter</h1>
+  <p>Enter phone numbers (one per line):</p>
+  <textarea id="input-area"></textarea>
+  <button id="filter-btn">Filter Phone Numbers</button>
+  <div id="output"></div>
+
+  <script>
+    // Define the phone number prefixes
+    const mobifonePrefix = /^(090|093|089|070|079|078|077|076)/;
+    const viettelPrefix = /^(096|097|098|086|032|033|034|035|036|037|038|039)/;
+    const vinaphonePrefix = /^(091|094|083|084|085|081|082)/;
+    const vietnamobilePrefix = /^(085|083|082|081)/;
+
+    // Get the button and add the click event listener
+    const filterBtn = document.getElementById('filter-btn');
+    filterBtn.addEventListener('click', filterPhoneNumbers);
+
+    function filterPhoneNumbers() {
+      // Get the input data from the textarea
+      const inputData = document.getElementById('input-area').value;
+      const phoneNumbers = inputData.trim().split('\n');
+
+      // Filter the phone numbers by network
+      const mobifoneNumbers = phoneNumbers.filter(num => mobifonePrefix.test(num));
+      const viettelNumbers = phoneNumbers.filter(num => viettelPrefix.test(num));
+      const vinaphoneNumbers = phoneNumbers.filter(num => vinaphonePrefix.test(num));
+      const vietnamobileNumbers = phoneNumbers.filter(num => vietnamobilePrefix.test(num));
+
+      // Calculate the total for each network
+      const mobifoneTotal = mobifoneNumbers.length;
+      const viettelTotal = viettelNumbers.length;
+      const vinaphoneTotal = vinaphoneNumbers.length;
+      const vietnamobileTotal = vietnamobileNumbers.length;
+
+      // Display the results
+      const outputDiv = document.getElementById('output');
+      outputDiv.textContent = `Số điện thoại Mobifone: ${mobifoneTotal}
+Số điện thoại Viettel: ${viettelTotal}
+Số điện thoại Vinaphone: ${vinaphoneTotal}
+Số điện thoại Vietnamobile: ${vietnamobileTotal}`;
+    }
+  </script>
+</body>
+</html>
